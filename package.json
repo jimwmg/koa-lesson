@@ -1,0 +1,20 @@
+{
+  "name": "18koa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "http:server": "cd node-http && nodemon server.js",
+    "http:client": "cd node-http && nodemon client.js && node axios.js",
+    "http": "npm run http:server && npm run http:client",
+    "koa": "cd koa && nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "koa": "^2.6.2"
+  }
+}
