@@ -25,3 +25,10 @@ npm install
 - sync.js 主要简单介绍了同步处理数据流的compose和reduce的实现；
 
 - async.js 主要是参考axios源码中增加中间件的源码，可以异步处理数据流；
+
+
+### 4 webpack-tapable模块
+
+[链接](https://www.pandashen.com/2018/08/06/20180806184412/?from=groupmessage&isappinstalled=0#more)
+
+感兴趣的可以看下这个，不在深入去分享了。

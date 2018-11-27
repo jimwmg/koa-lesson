@@ -21,7 +21,7 @@ let funcs = [fn1,fn2];
 let conposedFn = compose(...funcs);
 let result = conposedFn({})
 console.log('resCompose',result);
-
+//f1(f2(f3(...args)))
 //简单理解就是
 let resReduce = funcs.reduce((res,func) => {
   return func(res);

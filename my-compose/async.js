@@ -1,3 +1,4 @@
+//异步串行，异步并行
 class Compose {
   constructor(){
     this.middleWares = [];
@@ -19,13 +20,15 @@ class Compose {
     };
     return promise;
   }
+  sendParallel(ctx){
+    return Promise.all( this.middleWares.map(middleWare => middleWare(ctx)));
+  }
 }
 
 const compose = new Compose();
-const result = {}
 compose.use(async (ctx) => {
   console.log('1 s',ctx)
-  ctx.body = 'hello';
+  ctx.body = 'body';
   return await new Promise((resolve,reject) => {
     setTimeout(() => {
       console.log('1 e')
@@ -33,7 +36,7 @@ compose.use(async (ctx) => {
       ctx.asyncOperation = 'operation';
       resolve(ctx);
       // reject('this is 1 error')
-    })
+    },2000)
   })
 });
 compose.use(async (ctx) => {
@@ -43,9 +46,43 @@ compose.use(async (ctx) => {
   return ctx
 });
 
-const resultSend1 = compose.send(result).then((data) => {
+const resultSend1 = compose.send({tag:'send'}).then((data) => {
   console.log('resolve-data',data)
 }).catch((data) => {
   console.log('reject-data',data)
 })
-console.log('resultSend1',resultSend1)
+/** 
+ * 1 s { tag: 'send' }
+ * 
+ * =====2秒后======
+1 e
+2 s { tag: 'send', body: 'body', asyncOperation: 'operation' }
+2 e
+resolve-data { tag: 'send',
+  body: 'body',
+  asyncOperation: 'operation',
+  name: 'hello' }
+*/
+
+const resultSend2 = compose.sendParallel({tag:'sendParallel'}).then((data) => {
+  console.log('resolve-data',data)
+}).catch((data) => {
+  console.log('reject-data',data)
+})
+/** 
+ * 1s
+ * 2s
+ * 2e
+ * 
+ * =====2秒后======
+ * 1e
+ * resolve-data [ { tag: 'sendParallel',
+    body: 'body',
+    name: 'hello',
+    asyncOperation: 'operation' },
+  { tag: 'sendParallel',
+    body: 'body',
+    name: 'hello',
+    asyncOperation: 'operation' } ]
+ * 
+*/
