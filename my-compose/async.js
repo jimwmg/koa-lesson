@@ -20,6 +20,7 @@ class Compose {
     };
     return promise;
   }
+  //Promise.all() 返回一个promise对象，该promise对象的状态变化主要是根据对传入的每个参数进行处理，根据 remaining 的值判断是否处理完所有的promsies值，来进行判断是否resolve  Promsie.all 返回的promsie实例对象的状态；
   sendParallel(ctx){
     return Promise.all( this.middleWares.map(middleWare => middleWare(ctx)));
   }
@@ -86,3 +87,5 @@ const resultSend2 = compose.sendParallel({tag:'sendParallel'}).then((data) => {
     asyncOperation: 'operation' } ]
  * 
 */
+
+
