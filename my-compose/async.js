@@ -9,7 +9,7 @@ class Compose {
     }
     (this.middleWares || (this.middleWares = [])).push(middleWare);
   }
-  send(ctx){
+  send(ctx){//串行
     let chain = this.middleWares.slice();
     if(this.middleWares.length === 0){
       throw new Error('there is no middleWare to send to');
@@ -59,11 +59,11 @@ compose.use(async (ctx) => {
   return ctx
 });
 
-// const resultSend1 = compose.send({tag:'send'}).then((data) => {
-//   console.log('resolve-data',data)
-// }).catch((data) => {
-//   console.log('reject-data',data)
-// })
+const resultSend1 = compose.send({tag:'send'}).then((data) => {
+  console.log('resolve-data',data)
+}).catch((data) => {
+  console.log('reject-data',data)
+})
 /** 
  * 1 s { tag: 'send' }
  * 

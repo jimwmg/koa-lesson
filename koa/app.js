@@ -26,5 +26,5 @@ app.use(async function (ctx, next) {
   console.log('async2 end');
 });
 
-app.listen(3000)
+app.listen(3001)
 console.log('server is running localhost:3000')

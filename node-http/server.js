@@ -14,6 +14,7 @@ http.createServer( function (request, response) {
    // 从文件系统中读取请求的文件内容
    fs.readFile(pathname.substr(1), function (err, data) {
       if (err) {
+         
          console.log(err);
          // HTTP 状态码: 404 : NOT FOUND
          // Content Type: text/plain
